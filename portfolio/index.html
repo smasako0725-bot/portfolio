@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masako | Freelance Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814;
+    --paper: #f5f2ec;
+    --warm: #c8a882;
+    --muted: #8a8278;
+    --light: #e8e3da;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--warm);
+  }
+  .hero-catch {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 2;
+    max-width: 28rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-cta {
+    margin-top: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+    transition: gap 0.3s;
+  }
+  .hero-cta:hover { gap: 1.5rem; }
+  .hero-cta::after {
+    content: '→';
+    font-size: 1rem;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--light) 0%, #ddd6c8 100%);
+  }
+  .hero-deco {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1.5s 0.5s forwards;
+  }
+  .hero-deco-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(6rem, 12vw, 14rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(26,24,20,0.06);
+    white-space: nowrap;
+    transform: rotate(-15deg);
+    user-select: none;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 4rem;
+    right: 4rem;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm);
+    line-height: 1.8;
+    animation: spin 20s linear infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 8rem 4rem; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--warm);
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: start;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8rem 4rem;
+  }
+  #about .section-label { color: var(--warm); }
+  #about .section-label::after { background: var(--warm); }
+
+  .about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    position: sticky;
+    top: 8rem;
+  }
+  .about-heading em {
+    font-style: italic;
+    color: var(--warm);
+  }
+
+  .about-body p {
+    font-size: 0.9rem;
+    color: rgba(245,242,236,0.75);
+    line-height: 2.2;
+    margin-bottom: 1.5rem;
+  }
+  .about-body p strong {
+    color: var(--paper);
+    font-weight: 400;
+  }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 3rem;
+  }
+  .about-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid rgba(200,168,130,0.4);
+    color: var(--warm);
+    border-radius: 2rem;
+  }
+
+  /* ── WORKS ── */
+  #works { background: var(--paper); }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-card {
+    background: var(--light);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .work-card:hover { transform: translateY(-6px); }
+
+  .work-card:nth-child(1) { grid-column: span 7; }
+  .work-card:nth-child(2) { grid-column: span 5; }
+  .work-card:nth-child(3) { grid-column: span 4; }
+  .work-card:nth-child(4) { grid-column: span 4; }
+  .work-card:nth-child(5) { grid-column: span 4; }
+
+  .work-img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, #ddd6c8, #c8bfb0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .work-card:nth-child(1) .work-img { background: linear-gradient(135deg, #c8d4d8, #a8b8c0); }
+  .work-card:nth-child(2) .work-img { background: linear-gradient(135deg, #d4c8c8, #c0a8a8); }
+  .work-card:nth-child(3) .work-img { background: linear-gradient(135deg, #c8d0c8, #a8b8a8); }
+  .work-card:nth-child(4) .work-img { background: linear-gradient(135deg, #d0ccc4, #b8b0a4); }
+  .work-card:nth-child(5) .work-img { background: linear-gradient(135deg, #ccc8d4, #b0a8c0); }
+
+  .work-img-placeholder {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: rgba(26,24,20,0.3);
+    text-transform: uppercase;
+  }
+
+  .work-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26,24,20,0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .work-card:hover .work-overlay { opacity: 1; }
+  .work-overlay-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 0.75rem;
+  }
+  .work-overlay-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--paper);
+    margin-bottom: 0.75rem;
+  }
+  .work-overlay-desc {
+    font-size: 0.75rem;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.8;
+  }
+
+  .work-meta {
+    padding: 1.25rem 1.5rem;
+  }
+  .work-meta-title {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+  .work-meta-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── SKILLS ── */
+  #skills {
+    background: var(--light);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+  }
+  .skills-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    position: sticky;
+    top: 8rem;
+  }
+  .skills-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .skill-item {}
+  .skill-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 0.75rem;
+  }
+  .skill-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .skill-bar {
+    height: 1px;
+    background: var(--light);
+    margin-top: 1rem;
+    position: relative;
+  }
+  .skill-bar::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    background: var(--warm);
+    animation: growBar 1.5s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  }
+  .skill-item:nth-child(1) .skill-bar::after { width: 90%; }
+  .skill-item:nth-child(2) .skill-bar::after { width: 85%; }
+  .skill-item:nth-child(3) .skill-bar::after { width: 80%; }
+  .skill-item:nth-child(4) .skill-bar::after { width: 75%; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 10rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-deco {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .contact-deco-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(8rem, 20vw, 20rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,242,236,0.03);
+    white-space: nowrap;
+    user-select: none;
+  }
+  .contact-inner { position: relative; z-index: 2; }
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+  .contact-heading em { font-style: italic; color: var(--warm); }
+  .contact-sub {
+    font-size: 0.85rem;
+    color: rgba(245,242,236,0.5);
+    margin-bottom: 4rem;
+    line-height: 2;
+  }
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 3rem;
+    border: 1px solid var(--warm);
+    color: var(--warm);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .contact-btn:hover {
+    background: var(--warm);
+    color: var(--ink);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,242,236,0.1);
+  }
+  footer p {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.3);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes growBar {
+    from { width: 0; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 8rem 2rem 4rem; }
+    .hero-right { height: 40vw; }
+    section { padding: 5rem 2rem; }
+    #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+    .about-heading { position: static; }
+    .works-grid { grid-template-columns: 1fr; }
+    .work-card:nth-child(n) { grid-column: span 1; }
+    #skills { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-heading { position: static; }
+    .skills-list { grid-template-columns: 1fr; }
+    #contact { padding: 6rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Masako</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Freelance Designer — Hyogo, Japan</p>
+    <h1 class="hero-title">
+      Design<br>that gets<br><em>found.</em>
+    </h1>
+    <p class="hero-catch">
+      見てもらえて、見つけてもらえる。<br>そんなデザインを。
+    </p>
+    <a href="#works" class="hero-cta">Works を見る</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg"></div>
+    <div class="hero-deco">
+      <span class="hero-deco-text">Design</span>
+    </div>
+    <div class="hero-badge">
+      Freelance<br>Designer<br>Since 2024
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <p class="section-label">About</p>
+    <h2 class="about-heading">
+      Design<br>with<br><em>purpose.</em>
+    </h2>
+  </div>
+  <div class="about-body">
+    <p>はじめまして、<strong>Masako</strong>です。兵庫県在住のフリーランスデザイナーです。</p>
+    <p>アパレル業界で18年、ファッションの「伝わるビジュアル」を作り続けてきました。素材の質感、色のニュアンス、余白の美しさ——服を売るデザインで培った感覚を、そのままWebやDTPの仕事に持ち込んでいます。</p>
+    <p>家族との時間を大切にしたくてフリーランスへ転身。今は子育てをしながら、Webサイト制作・DTPデザイン・SNS運用まで、ひとりで幅広くお手伝いしています。</p>
+    <p>デザインだけでなく、<strong>SEO・GEO・LLMOを意識した設計</strong>もAIを積極的に活用しながら対応しています。「検索にも、AIにも、ちゃんと見つけてもらえるサイト」を一緒に作れるのが強みです。</p>
+    <p>「なんかいい感じにして」も大歓迎。一緒に考えながら、あなたのブランドらしいデザインを作ります。</p>
+    <div class="about-tags">
+      <span class="about-tag">Web Design</span>
+      <span class="about-tag">DTP</span>
+      <span class="about-tag">SNS運用</span>
+      <span class="about-tag">SEO / GEO / LLMO</span>
+      <span class="about-tag">AI活用</span>
+      <span class="about-tag">コンテンツ制作</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <p class="section-label">Works</p>
+  <div class="works-grid">
+
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-01.jpg" alt="SQUARE_LABO コーポレートサイト" style="width:100%;height:100%;object-fit:cover;">
+        <div class="work-overlay">
+          <p class="work-overlay-label">Web Design</p>
+          <p class="work-overlay-title">SQUARE_LABO</p>
+          <p class="work-overlay-desc">建設会社のコーポレートサイト。デザイン・コーディング・SEO対策まで一貫して担当。</p>
+        </div>
+      </div>
+      <div class="work-meta">
+        <p class="work-meta-title">SQUARE_LABO — コーポレートサイト</p>
+        <p class="work-meta-tag">Web Design / SEO</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-02.jpg" alt="SQUARE_LABO Instagram運用" style="width:100%;height:100%;object-fit:cover;">
+        <div class="work-overlay">
+          <p class="work-overlay-label">SNS運用</p>
+          <p class="work-overlay-title">SQUARE_LABO Instagram</p>
+          <p class="work-overlay-desc">ビジュアル設計・キャプション・ハッシュタグまで月次で運用中。</p>
+        </div>
+      </div>
+      <div class="work-meta">
+        <p class="work-meta-title">SQUARE_LABO — Instagram運用</p>
+        <p class="work-meta-tag">SNS / Content</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-03.jpg" alt="LP 卒業制作" style="width:100%;height:100%;object-fit:cover;">
+        <div class="work-overlay">
+          <p class="work-overlay-label">Web Design</p>
+          <p class="work-overlay-title">LP制作</p>
+          <p class="work-overlay-desc">スクール卒業制作として制作したランディングページ。</p>
+        </div>
+      </div>
+      <div class="work-meta">
+        <p class="work-meta-title">LP — 卒業制作</p>
+        <p class="work-meta-tag">Web Design / Coding</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-04.jpg" alt="HP 卒業制作" style="width:100%;height:100%;object-fit:cover;">
+        <div class="work-overlay">
+          <p class="work-overlay-label">Web Design</p>
+          <p class="work-overlay-title">HP制作</p>
+          <p class="work-overlay-desc">スクール卒業制作として制作したWebサイト。</p>
+        </div>
+      </div>
+      <div class="work-meta">
+        <p class="work-meta-title">HP — 卒業制作</p>
+        <p class="work-meta-tag">Web Design / Coding</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-img">
+        <span class="work-img-placeholder">Screenshot</span>
+        <div class="work-overlay">
+          <p class="work-overlay-label">DTP</p>
+          <p class="work-overlay-title">チラシデザイン</p>
+          <p class="work-overlay-desc">印刷物のデザイン。アパレル時代から培った紙面設計の知識を活かして制作。</p>
+        </div>
+      </div>
+      <div class="work-meta">
+        <p class="work-meta-title">チラシデザイン</p>
+        <p class="work-meta-tag">DTP / Print</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div>
+    <p class="section-label">Skills</p>
+    <h2 class="skills-heading">What I<br>can do<br><em>for you.</em></h2>
+  </div>
+  <div class="skills-list">
+    <div class="skill-item">
+      <p class="skill-name">Web Design</p>
+      <p class="skill-desc">LP・コーポレートサイト・ブログなど。HTML/CSS コーディングまで対応。WordPress・Wix も可。</p>
+      <div class="skill-bar"></div>
+    </div>
+    <div class="skill-item">
+      <p class="skill-name">DTP / Print</p>
+      <p class="skill-desc">チラシ・パンフレット・名刺など印刷物全般。Illustrator / Photoshop を使った仕上がりにこだわったデザイン。</p>
+      <div class="skill-bar"></div>
+    </div>
+    <div class="skill-item">
+      <p class="skill-name">SNS / Content</p>
+      <p class="skill-desc">Instagram運用・投稿デザイン・キャプション制作。ブランドのトーンを統一しながら継続的に発信をサポート。</p>
+      <div class="skill-bar"></div>
+    </div>
+    <div class="skill-item">
+      <p class="skill-name">SEO / GEO / LLMO</p>
+      <p class="skill-desc">検索エンジン・AIへの最適化を意識したサイト設計。AIツールを積極活用しながら「見つけてもらえる」コンテンツを作る。</p>
+      <div class="skill-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-deco">
+    <span class="contact-deco-text">Hello</span>
+  </div>
+  <div class="contact-inner">
+    <p class="section-label" style="justify-content:center; color:var(--warm);">Contact</p>
+    <h2 class="contact-heading">
+      Let's work<br><em>together.</em>
+    </h2>
+    <p class="contact-sub">
+      お仕事のご依頼・ご相談はお気軽にどうぞ。<br>
+      「なんかいい感じにしたい」から始められます。
+    </p>
+    <a href="/cdn-cgi/l/email-protection#a4ddcbd1d6e4c1c9c5cdc88ac7cbc9" class="contact-btn">メールで問い合わせる →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Masako. All rights reserved.</p>
+  <p>Freelance Designer — Hyogo, 
